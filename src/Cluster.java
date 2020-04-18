@@ -1,4 +1,3 @@
-package pa06;
 
 /**
  * A cluster is a cluster point (which is itself a sample)

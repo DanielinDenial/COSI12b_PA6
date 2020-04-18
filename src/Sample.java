@@ -1,5 +1,3 @@
-package pa06;
-
 import java.util.ArrayList;
 
 /**
