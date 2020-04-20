@@ -10,11 +10,15 @@ public class Sample {
 	ArrayList<Double> sample;
 	
 	public Sample(double[] values) {
-		this.sample = new ArrayList<Double>();
+		this.sample = new ArrayList<Double>(); //sample is an array list
 		for (int i=0; i<values.length; i++) {
-			sample.add(values[i]);
+			sample.add(values[i]); //adds the values of the passed list into sample
 		}
 		
+	}
+	
+	public ArrayList<Double> array() {
+		return sample;
 	}
 	
 	public static void main(String[] args) {
@@ -25,9 +29,11 @@ public class Sample {
 		Sample s2 = new Sample(p2);
 		System.out.println("s1="+s1);
 		System.out.println("s2="+s2);
+		System.out.print(calculateDistance(s1.array(), s2.array()));
 	}
+	
 
-	public Double calculateDistance(ArrayList<Double> s1, ArrayList<Double> s2) {
+	public static Double calculateDistance(ArrayList<Double> s1, ArrayList<Double> s2) {
 		double sum = 0;
 		for (int i = 0; i < s1.size(); i++) {
 			Double v1 = s1.get(i);
