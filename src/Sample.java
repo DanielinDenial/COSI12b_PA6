@@ -27,4 +27,21 @@ public class Sample {
 		System.out.println("s2="+s2);
 	}
 
+	public Double calculateDistance(ArrayList<Double> s1, ArrayList<Double> s2) {
+		double sum = 0;
+		for (int i = 0; i < s1.size(); i++) {
+			Double v1 = s1.get(i);
+			Double v2 = s2.get(i);
+			
+			if (v1!=null && v2!=null) {
+				sum += Math.pow(v1-v2, 2);
+			}
+		}
+		
+		return Math.sqrt(sum);
+	}
+	
+	public String toString() {
+		return ""+this.sample;
+	}
 }
