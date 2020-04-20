@@ -1,65 +1,53 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
- 
-public class Point {
- 
-    private double x = 0;
-    private double y = 0;
-    private int cluster_number = 0;
- 
-    public Point(double x, double y)
-    {
-        this.setX(x);
-        this.setY(y);
-    }
-    
-    public void setX(double x) {
-        this.x = x;
-    }
-    
-    public double getX()  {
-        return this.x;
-    }
-    
-    public void setY(double y) {
-        this.y = y;
-    }
-    
-    public double getY() {
-        return this.y;
-    }
-    
-    public void setCluster(int n) {
-        this.cluster_number = n;
-    }
-    
-    public int getCluster() {
-        return this.cluster_number;
-    }
-    
-    //Calculates the distance between two points.
-    protected static double distance(Point p, Point centroid) {
-        return Math.sqrt(Math.pow((centroid.getY() - p.getY()), 2) + Math.pow((centroid.getX() - p.getX()), 2));
-    }
-    
-    //Creates random point
-    protected static Point createRandomPoint(int min, int max) {
-    	Random r = new Random();
-    	double x = min + (max - min) * r.nextDouble();
-    	double y = min + (max - min) * r.nextDouble();
-    	return new Point(x,y);
-    }
-    
-    protected static List createRandomPoints(int min, int max, int number) {
-    	List points = new ArrayList(number);
-    	for(int i = 0; i &lt; number; i++) {
-    		points.add(createRandomPoint(min,max));
-    	}
-    	return points;
-    }
-    
-    public String toString() {
-    	return "("+x+","+y+")";
-    }
+
+/**
+ * A Sample represents a vector of doubles to be used in a clustering algorithm...
+ * @author presenting
+ *
+ */
+
+public class Sample {
+	ArrayList<Double> sample;
+	
+	public Sample(double[] values) {
+		this.sample = new ArrayList<Double>(); //sample is an array list
+		for (int i=0; i<values.length; i++) {
+			sample.add(values[i]); //adds the values of the passed list into sample
+		}
+		
+	}
+	
+	public ArrayList<Double> array() {
+		return sample;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("testing for the Sample class.");
+		double[] p1 = {1d, 2d, 3.14, 2.71};
+		double[] p2 = {0.1, 1.1, 2.1, 3.1};
+		Sample s1 = new Sample(p1);
+		Sample s2 = new Sample(p2);
+		System.out.println("s1="+s1);
+		System.out.println("s2="+s2);
+		System.out.print(calculateDistance(s1.array(), s2.array()));
+	}
+	
+
+	public static Double calculateDistance(ArrayList<Double> s1, ArrayList<Double> s2) {
+		double sum = 0;
+		for (int i = 0; i < s1.size(); i++) {
+			Double v1 = s1.get(i);
+			Double v2 = s2.get(i);
+			
+			if (v1!=null && v2!=null) {
+				sum += Math.pow(v1-v2, 2);
+			}
+		}
+		
+		return Math.sqrt(sum);
+	}
+	
+	public String toString() {
+		return ""+this.sample;
+	}
 }
