@@ -83,5 +83,28 @@ public class KMeans {
             clusters.get(cluster).addPoint(point);
         }
     }
+    
+    // calculates closer clusterPoint
+    private void calculateclusterpoint() {
+    	for(Cluster cluster : clusters) {
+    		double sumX = 0;
+    		double sumY = 0;
+    		ArrayList<Point> list = cluster.getPoints();
+    		int n_points = list.size();
+
+    		for(Point point : list) {
+    			sumX += point.getX();
+    			sumY += point.getY();
+    		}
+
+    		Point clusterpoint = cluster.getClusterPoint();
+    		if(n_points > 0) {
+    			double newX = sumX / n_points;
+    			double newY = sumY / n_points;
+    			clusterpoint.setX(newX);
+    			clusterpoint.setY(newY);
+    		}
+    	}
+    }
 
 }
