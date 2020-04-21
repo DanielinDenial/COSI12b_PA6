@@ -50,6 +50,8 @@ public class KMeans {
     	
     	minCoordinate = getMin(pointsList);
     	maxCoordinate = getMax(pointsList);
+    	System.out.println(minCoordinate);
+    	System.out.println(maxCoordinate);
 
     	kmeans.init(pointsList);
     	kmeans.calculate();
@@ -59,9 +61,9 @@ public class KMeans {
 	public static Double getMin(ArrayList<Double> arr){ 
 	    Double minValue = arr.get(0); 
 	    for(int i = 1; i < arr.size();i++){ 
-	      if(arr.get(0) < minValue){ 
-	         minValue = arr.get(0); 
-	      }
+	    	if(arr.get(i) < minValue){ 
+	    		minValue = arr.get(i);
+	    	}
 	    }
 	    return minValue; 
 	}
@@ -70,9 +72,9 @@ public class KMeans {
 	public static Double getMax(ArrayList<Double> arr){ 
 	    Double maxValue = arr.get(0); 
 	    for(int i = 1; i < arr.size();i++){ 
-	      if(arr.get(0) > maxValue){ 
-	         maxValue = arr.get(0); 
-	      }
+	    	if(arr.get(i) > maxValue){ 
+	    		maxValue = arr.get(i);
+	      	}
 	    }
 	    return maxValue; 
 	}
