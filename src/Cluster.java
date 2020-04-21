@@ -16,7 +16,7 @@ public class Cluster {
 	}
 	
 	//creates a getter for points
-	public List getPoints() {
+	public ArrayList<Point> getPoints() {
 		return points;
 	}
 	//method that adds point to ArrayList points
