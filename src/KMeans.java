@@ -20,6 +20,12 @@ public class KMeans {
     	this.clusters = new ArrayList<Cluster>();
     }
     
+    public static void main(String[] args) {
+    	KMeans kmeans = new KMeans();
+    	kmeans.init();
+    	kmeans.calculate();
+    }
+    
 	// initializes the process
     public void init() {
     	// create Points randomly
@@ -35,6 +41,44 @@ public class KMeans {
     	
     	// print Initial state
     	plotClusters();
+    }
+    
+ // calculates K Means with iterating method
+    public void calculate() {
+        boolean finish = false;
+        int iteration = 0;
+        
+        // add in new data, one at a time, recalculating cluster point with each new one
+        while(!finish) {
+        	// clear cluster state
+        	clearClusters();
+        	
+        	ArrayList<Point> lastclusterpoint = getClusterPoint();
+        	
+        	// assign points to the closer cluster
+        	assignCluster();
+            
+            // calculate new clusterpoint
+        	calculateclusterpoint();
+        	
+        	iteration++;
+        	
+        	ArrayList<Point> currentclusterpoint = getClusterPoint();
+        	
+        	// calculates total distance between new and old clusterpoint
+        	double distance = 0;
+        	for(int i = 0; i < lastclusterpoint.size(); i++) {
+        		distance += Point.distance(lastclusterpoint.get(i),currentclusterpoint.get(i));
+        	}
+        	System.out.println("#################");
+        	System.out.println("Iteration: " + iteration);
+        	System.out.println("Cluster point distances: " + distance);
+        	plotClusters();
+        	        	
+        	if(distance == 0) {
+        		finish = true;
+        	}
+        }
     }
     
     // plots clusters
@@ -107,43 +151,4 @@ public class KMeans {
     		}
     	}
     }
-    
- // calculates K Means with iterating method
-    public void calculate() {
-        boolean finish = false;
-        int iteration = 0;
-        
-        // add in new data, one at a time, recalculating cluster point with each new one
-        while(!finish) {
-        	// clear cluster state
-        	clearClusters();
-        	
-        	ArrayList<Point> lastclusterpoint = getClusterPoint();
-        	
-        	// assign points to the closer cluster
-        	assignCluster();
-            
-            // calculate new clusterpoint
-        	calculateclusterpoint();
-        	
-        	iteration++;
-        	
-        	ArrayList<Point> currentclusterpoint = getClusterPoint();
-        	
-        	// calculates total distance between new and old clusterpoint
-        	double distance = 0;
-        	for(int i = 0; i < lastclusterpoint.size(); i++) {
-        		distance += Point.distance(lastclusterpoint.get(i),currentclusterpoint.get(i));
-        	}
-        	System.out.println("#################");
-        	System.out.println("Iteration: " + iteration);
-        	System.out.println("Cluster point distances: " + distance);
-        	plotClusters();
-        	        	
-        	if(distance == 0) {
-        		finish = true;
-        	}
-        }
-    }
-
 }
