@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * This class initiates the calculation of k-means
+ * 
+ * @author Team 5: Peppa Pig
+ *
+ */
 public class KMeans {
 	// number of Clusters
     private int NUM_CLUSTERS = 3;    
@@ -20,22 +26,26 @@ public class KMeans {
     	this.clusters = new ArrayList<Cluster>();
     }
     
-    public static void main(String[] args) {
+    /**
+     * main method that runs program
+     * @param args
+     */
+	public static void main(String[] args) {
     	KMeans kmeans = new KMeans();
     	kmeans.init();
     	kmeans.calculate();
-    }
+	}
     
 	// initializes the process
     public void init() {
-    	// create Points randomly
+    	// create Points
     	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
     	
     	// create Clusters with random cluster points
     	for (int i = 0; i < NUM_CLUSTERS; i++) {
     		Cluster cluster = new Cluster(i);
     		Point clusterpoint = Point.createRandomPoint(MIN_COORDINATE,MAX_COORDINATE);
-    		cluster.setClusterPoint(clusterpoint);
+    		cluster.setclusterpoint(clusterpoint);
     		clusters.add(cluster);
     	}
     	
@@ -43,7 +53,15 @@ public class KMeans {
     	plotClusters();
     }
     
- // calculates K Means with iterating method
+    // plots clusters
+    private void plotClusters() {
+    	for (int i = 0; i < NUM_CLUSTERS; i++) {
+    		Cluster c = clusters.get(i);
+    		c.plotCluster();
+    	}
+    }
+    
+  // calculates K Means with iterating method
     public void calculate() {
         boolean finish = false;
         int iteration = 0;
@@ -53,7 +71,7 @@ public class KMeans {
         	// clear cluster state
         	clearClusters();
         	
-        	ArrayList<Point> lastclusterpoint = getClusterPoint();
+        	ArrayList<Point> lastclusterpoint = getclusterpoint();
         	
         	// assign points to the closer cluster
         	assignCluster();
@@ -63,7 +81,7 @@ public class KMeans {
         	
         	iteration++;
         	
-        	ArrayList<Point> currentclusterpoint = getClusterPoint();
+        	ArrayList<Point> currentclusterpoint = getclusterpoint();
         	
         	// calculates total distance between new and old clusterpoint
         	double distance = 0;
@@ -81,33 +99,25 @@ public class KMeans {
         }
     }
     
-    // plots clusters
-    private void plotClusters() {
-    	for (int i = 0; i < NUM_CLUSTERS; i++) {
-    		Cluster c = clusters.get(i);
-    		c.plotCluster();
-    	}
-    }
-    
-    //clears cluster
+    // clears cluster
     private void clearClusters() {
     	for(Cluster cluster : clusters) {
     		cluster.clear();
     	}
     }
     
-    //getter method for clusterPoint ArrayList
-    private ArrayList<Point> getClusterPoint() {
+    // getter method for clusterpoint Arraylist
+    private ArrayList<Point> getclusterpoint() {
     	ArrayList<Point> clusterpoint = new ArrayList<Point>(NUM_CLUSTERS);
     	for(Cluster cluster : clusters) {
-    		Point aux = cluster.getClusterPoint();
+    		Point aux = cluster.getclusterpoint();
     		Point point = new Point(aux.getX(),aux.getY());
     		clusterpoint.add(point);
     	}
     	return clusterpoint;
     }
     
-    //setter method for cluster
+    // setter method for cluster
     private void assignCluster() {
         double max = Double.MAX_VALUE;
         double min = max; 
@@ -118,7 +128,7 @@ public class KMeans {
         	min = max;
             for(int i = 0; i < NUM_CLUSTERS; i++) {
             	Cluster c = clusters.get(i);
-                distance = Point.distance(point, c.getClusterPoint());
+                distance = Point.distance(point, c.getclusterpoint());
                 if(distance < min){
                     min = distance;
                     cluster = i;
@@ -129,26 +139,26 @@ public class KMeans {
         }
     }
     
-    // calculates closer clusterPoint
+    // calculates closer clusterpoint
     private void calculateclusterpoint() {
-    	for(Cluster cluster : clusters) {
-    		double sumX = 0;
-    		double sumY = 0;
-    		ArrayList<Point> list = cluster.getPoints();
-    		int n_points = list.size();
-
-    		for(Point point : list) {
-    			sumX += point.getX();
-    			sumY += point.getY();
-    		}
-
-    		Point clusterpoint = cluster.getClusterPoint();
-    		if(n_points > 0) {
-    			double newX = sumX / n_points;
-    			double newY = sumY / n_points;
-    			clusterpoint.setX(newX);
-    			clusterpoint.setY(newY);
-    		}
-    	}
+        for(Cluster cluster : clusters) {
+            double sumX = 0;
+            double sumY = 0;
+            ArrayList<Point> list = cluster.getPoints();
+            int n_points = list.size();
+            
+            for(Point point : list) {
+            	sumX += point.getX();
+                sumY += point.getY();
+            }
+            
+            Point clusterpoint = cluster.getclusterpoint();
+            if(n_points > 0) {
+            	double newX = sumX / n_points;
+            	double newY = sumY / n_points;
+                clusterpoint.setX(newX);
+                clusterpoint.setY(newY);
+            }
+        }
     }
 }

@@ -67,7 +67,7 @@ public class Point {
     }
     
     public String toString() {
-    	return "("+x+","+y+")";
+    	return "("+this.x+","+this.y+")";
     }
     
     // calculates the distance between two points
@@ -80,9 +80,9 @@ public class Point {
     // instead of putting this method in the Cluster.java class, we found that putting it in the Point.java class makes it easier
     protected static Point createRandomPoint(int min, int max) {
     	Random r = new Random();
-    	double x = min+(max-min)*r.nextDouble();
-    	double y = min+(max-min)*r.nextDouble();
-    	return new Point(x,y);
+    	double x1 = min+(max-min)*r.nextDouble();
+    	double y1 = min+(max-min)*r.nextDouble();
+    	return new Point(x1,y1);
     }
     
     // creates an ArrayList of random points
