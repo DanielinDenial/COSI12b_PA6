@@ -28,7 +28,7 @@ public class Cluster {
 		this.points = points;
 	}
 	//creates getter for Centroid
-	public Point getclusterpoint() {
+	public Point getClusterPoint() {
 		return clusterPoint;
 	}
 	//creates setter for centroid

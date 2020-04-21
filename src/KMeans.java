@@ -44,5 +44,44 @@ public class KMeans {
     		c.plotCluster();
     	}
     }
+    
+    private void clearClusters() {
+    	for(Cluster cluster : clusters) {
+    		cluster.clear();
+    	}
+    }
+    
+    //getter method for clusterPoint ArrayList
+    private ArrayList<Point> getClusterPoint() {
+    	ArrayList<Point> clusterpoint = new ArrayList<Point>(NUM_CLUSTERS);
+    	for(Cluster cluster : clusters) {
+    		Point aux = cluster.getClusterPoint();
+    		Point point = new Point(aux.getX(),aux.getY());
+    		clusterpoint.add(point);
+    	}
+    	return clusterpoint;
+    }
+    
+    //setter method for cluster
+    private void assignCluster() {
+        double max = Double.MAX_VALUE;
+        double min = max; 
+        int cluster = 0;                 
+        double distance = 0.0; 
+        
+        for(Point point : points) {
+        	min = max;
+            for(int i = 0; i < NUM_CLUSTERS; i++) {
+            	Cluster c = clusters.get(i);
+                distance = Point.distance(point, c.getClusterPoint());
+                if(distance < min){
+                    min = distance;
+                    cluster = i;
+                }
+            }
+            point.setCluster(cluster);
+            clusters.get(cluster).addPoint(point);
+        }
+    }
 
 }
