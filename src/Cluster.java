@@ -5,14 +5,14 @@ import java.util.List;
 public class Cluster {
 	
 	public ArrayList<Point> points;
-	public Point centroid;
+	public Point clusterPoint;
 	public int id;
 	
 	//creates new cluster, uses this. to refer to instance variables
 	public Cluster(int id) {
 		this.id = id;
 		this.points = new ArrayList();
-		this.centroid = null;
+		this.clusterPoint = null;
 	}
 	
 	//creates a getter for points
@@ -28,12 +28,12 @@ public class Cluster {
 		this.points = points;
 	}
 	//creates getter for Centroid
-	public Point getCentroid() {
-		return centroid;
+	public Point getclusterpoint() {
+		return clusterPoint;
 	}
 	//creates setter for centroid
-	public void setCentroid(Point centroid) {
-		this.centroid = centroid;
+	public void setClusterPoint(Point centroid) {
+		this.clusterPoint = centroid;
 	}
 	//creates getter for id
 	public int getId() {
@@ -46,7 +46,7 @@ public class Cluster {
 	//creates system of print lines in order to plot the cluster
 	public void plotCluster() {
 		System.out.println("[Cluster: " +id+"]");
-		System.out.println("[Centroid: "+centroid+"]");
+		System.out.println("[Centroid: "+clusterPoint+"]");
 		System.out.println("[Points \n");
 		for(Point p : points) {
 			System.out.println(p);

@@ -19,5 +19,30 @@ public class KMeans {
     	this.points = new ArrayList<Point>();
     	this.clusters = new ArrayList<Cluster>();
     }
+    
+	// initializes the process
+    public void init() {
+    	// create Points randomly
+    	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
+    	
+    	// create Clusters with random cluster points
+    	for (int i = 0; i < NUM_CLUSTERS; i++) {
+    		Cluster cluster = new Cluster(i);
+    		Point clusterpoint = Point.createRandomPoint(MIN_COORDINATE,MAX_COORDINATE);
+    		cluster.setClusterPoint(clusterpoint);
+    		clusters.add(cluster);
+    	}
+    	
+    	// print Initial state
+    	plotClusters();
+    }
+    
+    // plots clusters
+    private void plotClusters() {
+    	for (int i = 0; i < NUM_CLUSTERS; i++) {
+    		Cluster c = clusters.get(i);
+    		c.plotCluster();
+    	}
+    }
 
 }
