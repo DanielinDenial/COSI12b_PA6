@@ -28,14 +28,6 @@ public class Point {
 		this.setY(y);
 	}
 	
-	/**
-	 * Creates a default point object with parameters (0,0)
-	 */
-	public Point() {
-		this.setX(0);
-		this.setY(0);
-	}
-	
 	// setter method for this.x
 	public void setX(double x) {
         this.x = x;
@@ -78,7 +70,7 @@ public class Point {
     
     // creates an ArrayList of determined points
     protected static ArrayList<Point> createPoints(ArrayList<Double> pointsList) {
-    	ArrayList<Point> points = new ArrayList<Point>(pointsList.size()/2);
+    	ArrayList<Point> points = new ArrayList<Point>();
     	for(int i = 0; i < pointsList.size()/2; i+=2) {
     		Point p = new Point(pointsList.get(i), pointsList.get(i+1));
     		points.add(p);
@@ -88,13 +80,14 @@ public class Point {
     
     // creates a random point
     // instead of putting this method in the Cluster.java class, we found that putting it in the Point.java class makes it easier
-    protected static Point createRandomPoint(double min, double max) {
+    protected static Point createRandomPoint(int min, int max) {
     	Random r = new Random();
-    	double x1 = min+(max-min)*r.nextDouble();
-    	double y1 = min+(max-min)*r.nextDouble();
-    	return new Point(x1,y1);
+    	double x = min+(max-min)*r.nextDouble();
+    	double y = min+(max-min)*r.nextDouble();
+    	return new Point(x,y);
     }    
     
+    /*
     // creates an ArrayList of random points
     protected static ArrayList<Point> createRandomPoints(double min, double max, int number) {
     	ArrayList<Point> points = new ArrayList<Point>(number);
@@ -103,5 +96,6 @@ public class Point {
     	}
     	return points;
     }
+    */
     
 }

@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Collections;
 
 /**
  * This class initiates the calculation of k-means
@@ -15,12 +14,14 @@ public class KMeans {
     private int numClusters;
     
     // min and max X and Y
-    private static double minCoordinate;
-    private static double maxCoordinate;
+    private static int minCoordinate;
+    private static int maxCoordinate;
     
     
     private ArrayList<Point> points;
     private ArrayList<Cluster> clusters;
+
+	private static Scanner in;
     
     /**
      * Creates KMeans object with points and clusters
@@ -40,18 +41,15 @@ public class KMeans {
 	public static void main(String[] args) throws FileNotFoundException {
 		KMeans kmeans = new KMeans(Integer.parseInt(args[0]));
 		File file = new File("C:\\Users\\Daniel Hariyanto\\eclipse-workspace\\COSI12b_PA6\\src\\test.txt");
-		Scanner in = new Scanner(file);
+		in = new Scanner(file);
     	ArrayList<Double> pointsList = new ArrayList<Double>();
     	while(in.hasNextDouble()) {
     		pointsList.add(in.nextDouble());
     	}
     	
     	// finds minimum and maximum x/y coordinate
-    	
-    	minCoordinate = getMin(pointsList);
-    	maxCoordinate = getMax(pointsList);
-    	System.out.println(minCoordinate);
-    	System.out.println(maxCoordinate);
+    	minCoordinate = (int) Math.round(getMin(pointsList));
+    	maxCoordinate = (int) Math.round(getMax(pointsList));
 
     	kmeans.init(pointsList);
     	kmeans.calculate();
@@ -104,7 +102,7 @@ public class KMeans {
     	}
     }
     
-  // calculates K Means with iterating method
+    // calculates K Means with iterating method
     public void calculate() {
         boolean finish = false;
         int iteration = 0;
