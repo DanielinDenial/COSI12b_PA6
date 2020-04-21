@@ -59,12 +59,7 @@ public class Cluster {
 	
 	// plots the cluster with its points and cluster point
 	public void plotCluster() {
-		System.out.println("[Cluster: " + this.id+"]");
+		System.out.println("[Cluster: " + (this.id+1)+"]");
 		System.out.println("[Cluster Point: " + this.clusterpoint + "]");
-		System.out.println("[Points: \n");
-		for(Point p : this.points) {
-			System.out.println(p);
-		}
-		System.out.println("]");
 	}
 }

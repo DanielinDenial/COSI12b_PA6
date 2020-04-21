@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.Collections;
 
 /**
  * This class initiates the calculation of k-means
@@ -8,12 +12,12 @@ import java.util.ArrayList;
  */
 public class KMeans {
 	// number of Clusters
-    private int NUM_CLUSTERS = 3;    
-    // number of Points
-    private int NUM_POINTS = 15;
+    private int numClusters;
+    
     // min and max X and Y
-    private static final int MIN_COORDINATE = 0;
-    private static final int MAX_COORDINATE = 10;
+    private static double minCoordinate;
+    private static double maxCoordinate;
+    
     
     private ArrayList<Point> points;
     private ArrayList<Cluster> clusters;
@@ -21,30 +25,67 @@ public class KMeans {
     /**
      * Creates KMeans object with points and clusters
      */
-    public KMeans() {
+    public KMeans(int numClusters) {
     	this.points = new ArrayList<Point>();
     	this.clusters = new ArrayList<Cluster>();
+    	this.numClusters = numClusters;
     }
     
     /**
      * main method that runs program
-     * @param args
+     * args: number of clusters
+     * @param number of clusters
+     * @throws FileNotFoundException 
      */
-	public static void main(String[] args) {
-    	KMeans kmeans = new KMeans();
-    	kmeans.init();
+	public static void main(String[] args) throws FileNotFoundException {
+		KMeans kmeans = new KMeans(Integer.parseInt(args[0]));
+		File file = new File("C:\\Users\\Daniel Hariyanto\\eclipse-workspace\\COSI12b_PA6\\src\\test.txt");
+		Scanner in = new Scanner(file);
+    	ArrayList<Double> pointsList = new ArrayList<Double>();
+    	while(in.hasNextDouble()) {
+    		pointsList.add(in.nextDouble());
+    	}
+    	
+    	// finds minimum and maximum x/y coordinate
+    	
+    	minCoordinate = getMin(pointsList);
+    	maxCoordinate = getMax(pointsList);
+
+    	kmeans.init(pointsList);
     	kmeans.calculate();
+	}
+	
+	// calculate minimum value in ArrayList
+	public static Double getMin(ArrayList<Double> arr){ 
+	    Double minValue = arr.get(0); 
+	    for(int i = 1; i < arr.size();i++){ 
+	      if(arr.get(0) < minValue){ 
+	         minValue = arr.get(0); 
+	      }
+	    }
+	    return minValue; 
+	}
+	
+	// calculate maximum value in ArrayList
+	public static Double getMax(ArrayList<Double> arr){ 
+	    Double maxValue = arr.get(0); 
+	    for(int i = 1; i < arr.size();i++){ 
+	      if(arr.get(0) > maxValue){ 
+	         maxValue = arr.get(0); 
+	      }
+	    }
+	    return maxValue; 
 	}
     
 	// initializes the process
-    public void init() {
+    public void init(ArrayList<Double> pointsList) {
     	// create Points
-    	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
+    	points = Point.createPoints(pointsList);
     	
     	// create Clusters with random cluster points
-    	for (int i = 0; i < NUM_CLUSTERS; i++) {
+    	for (int i = 0; i < numClusters; i++) {
     		Cluster cluster = new Cluster(i);
-    		Point clusterpoint = Point.createRandomPoint(MIN_COORDINATE,MAX_COORDINATE);
+    		Point clusterpoint = Point.createRandomPoint(minCoordinate,maxCoordinate);
     		cluster.setclusterpoint(clusterpoint);
     		clusters.add(cluster);
     	}
@@ -55,7 +96,7 @@ public class KMeans {
     
     // plots clusters
     private void plotClusters() {
-    	for (int i = 0; i < NUM_CLUSTERS; i++) {
+    	for (int i = 0; i < numClusters; i++) {
     		Cluster c = clusters.get(i);
     		c.plotCluster();
     	}
@@ -108,7 +149,7 @@ public class KMeans {
     
     // getter method for clusterpoint Arraylist
     private ArrayList<Point> getclusterpoint() {
-    	ArrayList<Point> clusterpoint = new ArrayList<Point>(NUM_CLUSTERS);
+    	ArrayList<Point> clusterpoint = new ArrayList<Point>(numClusters);
     	for(Cluster cluster : clusters) {
     		Point aux = cluster.getclusterpoint();
     		Point point = new Point(aux.getX(),aux.getY());
@@ -121,12 +162,12 @@ public class KMeans {
     private void assignCluster() {
         double max = Double.MAX_VALUE;
         double min = max; 
-        int cluster = 0;                 
+        int cluster = 0;
         double distance = 0.0; 
         
         for(Point point : points) {
         	min = max;
-            for(int i = 0; i < NUM_CLUSTERS; i++) {
+            for(int i = 0; i < numClusters; i++) {
             	Cluster c = clusters.get(i);
                 distance = Point.distance(point, c.getclusterpoint());
                 if(distance < min){

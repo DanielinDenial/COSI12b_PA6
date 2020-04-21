@@ -76,21 +76,32 @@ public class Point {
         return Math.sqrt(Math.pow((p2.getY()-p1.getY()), 2) + Math.pow((p2.getX()-p1.getX()), 2));
     }
     
+    // creates an ArrayList of determined points
+    protected static ArrayList<Point> createPoints(ArrayList<Double> pointsList) {
+    	ArrayList<Point> points = new ArrayList<Point>(pointsList.size()/2);
+    	for(int i = 0; i < pointsList.size()/2; i+=2) {
+    		Point p = new Point(pointsList.get(i), pointsList.get(i+1));
+    		points.add(p);
+    	}
+    	return points;
+    }
+    
     // creates a random point
     // instead of putting this method in the Cluster.java class, we found that putting it in the Point.java class makes it easier
-    protected static Point createRandomPoint(int min, int max) {
+    protected static Point createRandomPoint(double min, double max) {
     	Random r = new Random();
     	double x1 = min+(max-min)*r.nextDouble();
     	double y1 = min+(max-min)*r.nextDouble();
     	return new Point(x1,y1);
-    }
+    }    
     
     // creates an ArrayList of random points
-    protected static ArrayList<Point> createRandomPoints(int min, int max, int number) {
+    protected static ArrayList<Point> createRandomPoints(double min, double max, int number) {
     	ArrayList<Point> points = new ArrayList<Point>(number);
     	for(int i = 0; i < number; i++) {
     		points.add(createRandomPoint(min,max));
     	}
     	return points;
     }
+    
 }
